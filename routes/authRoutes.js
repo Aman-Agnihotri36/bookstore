@@ -49,7 +49,7 @@ router.post("/register", async (req, res) => {
         })
 
         const tokenData = {
-            userId: user._id
+            userId: newuser._id
         }
 
         const token = await jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' })
