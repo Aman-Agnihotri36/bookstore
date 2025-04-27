@@ -48,19 +48,7 @@ router.post("/register", async (req, res) => {
 
         })
 
-        const tokenData = {
-            userId: newuser._id
-        }
-
-        const token = await jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' })
-
-
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 1000 }, { httpsOnly: true }, { sameSite: 'strict' }).json({
-            message: `Account created successfully`,
-            newuser,
-            success: true
-        })
-
+        res.json({ message: 'Success' })
 
 
     } catch (error) {
