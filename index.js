@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoutes.js'
 import bookRouter from './routes/bookRoutes.js'
 import { MongoDbConnect } from "./lib/database.js"
 import cors from 'cors'
+import job from "./lib/corn.js"
 
 
 dotenv.config()
@@ -11,6 +12,7 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
+job.start()
 app.use(express.json());
 app.use(cors())
 
