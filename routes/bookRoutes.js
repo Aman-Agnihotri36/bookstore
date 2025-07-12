@@ -5,7 +5,7 @@ import isAuthenticated from '../middleware/isAuthenticated.js'
 
 const router = express.Router()
 
-router.post('/',  async (req, res) => {
+router.post('/', isAuthenticated,  async (req, res) => {
     try {
         const { title, caption, rating, image } = req.body
 
