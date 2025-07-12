@@ -17,7 +17,7 @@ const protectRoute = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: "No authentication token, access denied" });
 
     // verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     // find user
     const user = await User.findById(decoded.userId).select("-password");
