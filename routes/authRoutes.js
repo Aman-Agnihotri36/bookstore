@@ -43,7 +43,7 @@ router.post("/register", async (req, res) => {
       email,
       username,
       password: hashedPassword,
-      profileImage,
+      photo: profileImage,
     });
 
     await user.save();
