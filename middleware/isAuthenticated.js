@@ -10,7 +10,7 @@ import User from "../lib/model/user.model.js"
 //   headers: { Authorization: `Bearer ${token}` },
 // });
 
-const protectRoute = async (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
   try {
     // get token
     const token = req.header("Authorization").replace("Bearer ", "");
