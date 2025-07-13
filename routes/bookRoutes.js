@@ -72,7 +72,7 @@ router.get("/user", isAuthenticated, async (req, res) => {
     }
 })
 
-router.delete("/:id", protectRoute, async (req, res) => {
+router.delete("/:id", isAuthenticated , async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
     if (!book) return res.status(404).json({ message: "Book not found" });
