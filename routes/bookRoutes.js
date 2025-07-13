@@ -47,7 +47,7 @@ router.get("/", isAuthenticated, async (req, res) => {
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
-            .populate("user", "username, photo")
+            .populate("user", "username photo")
 
         const totalBooks = await Book.countDocuments()
         res.send({
