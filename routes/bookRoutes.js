@@ -64,7 +64,7 @@ router.get("/", isAuthenticated, async (req, res) => {
 
 router.get("/user", isAuthenticated, async (req, res) => {
     try {
-        const books = await Book.find({ user: req.id }).sort({ createdAt: -1 })
+        const books = await Book.find({ user: req.user._id }).sort({ createdAt: -1 })
         res.json(books)
     } catch (error) {
         console.log("Getuser books error : ", error)
