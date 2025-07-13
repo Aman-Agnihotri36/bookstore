@@ -1,33 +1,29 @@
 import jwt from "jsonwebtoken";
-import User from "../lib/model/user.model.js"
-
-// const response = await fetch(`http://localhost:3000/api/books`, {
-//   method: "POST",
-//   body: JSON.stringify({
-//     title,
-//     caption
-//   }),
-//   headers: { Authorization: `Bearer ${token}` },
-// });
+import User from "../lib/model/user.model.js";
 
 const isAuthenticated = async (req, res, next) => {
   try {
-    // get token
-    const token = req.header("Authorization").replace("Bearer ", "");
-    if (!token) return res.status(401).json({ message: "No authentication token, access denied" });
+    const authHeader = req.header("Authorization");
 
-    // verify token
+    // Validate header presence and format
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "No authentication token, access denied" });
+    }
+
+    const token = authHeader.replace("Bearer ", "").trim();
+
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
-    // find user
     const user = await User.findById(decoded.userId).select("-password");
-    if (!user) return res.status(401).json({ message: "Token is not valid" });
+
+    if (!user) {
+      return res.status(401).json({ message: "Token is not valid" });
+    }
 
     req.user = user;
     next();
   } catch (error) {
     console.error("Authentication error:", error.message);
-    res.status(401).json({ message: "Token is not valid" });
+    return res.status(401).json({ message: "Token is not valid" });
   }
 };
 
